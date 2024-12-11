@@ -3,32 +3,27 @@ import { Appbar } from "@/components/Appbar";
 import { Primarybutton } from "@/components/buttons/Primarybutton";
 import { Checkfeature } from "@/components/Checkfeature";
 import { Inputbox } from "@/components/Inputbox";
-import { useRouter } from "next/navigation";
+import { BACKEND_URL } from "@/config";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BACKEND_URL } from "@/config";
 
-
-
-export default function Signup() {
+export default function Signin() {
   const router = useRouter();
-  const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   async function sendRequest() {
-    const res = await axios.post(`${BACKEND_URL}/api/v1/user/signup`, {
-      name: name,
+    const res = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, {
       email: email,
       password: password,
     });
-    console.log(res);
-    if ((res.status = 200)) {
-      router.push("/signin");
+
+    if (res.status == 200) {
+      router.push("/dashboard");
     }
   }
-
   return (
     <div>
       <Appbar />
@@ -52,22 +47,14 @@ export default function Signup() {
                 setEmail(e.target.value);
               }}
             />
-            <div className="flex gap-4">
-              <Inputbox
-                lable={"* Name"}
-                placeholder={"Name"}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-              />
-              <Inputbox
-                lable={"* Password"}
-                placeholder={"Password"}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </div>
+
+            <Inputbox
+              lable={"* Password"}
+              placeholder={"Password"}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
 
             <div className="pb-3 text-md">
               By signing up, you agree to Zapier's{" "}
@@ -75,15 +62,11 @@ export default function Signup() {
                 terms of service and privacy policy.
               </Link>
             </div>
-            <Primarybutton
-              lable={"Get started for free"}
-              type="big"
-              onClick={sendRequest}
-            />
+            <Primarybutton lable={"Log in"} type="big" onClick={sendRequest} />
             <div className="pt-3">
-              Already have an account?{" "}
-              <Link href={"signin"} className="text-sky-600 underline">
-                Log in
+              Don't have an account?{" "}
+              <Link href={"signup"} className="text-sky-600 underline">
+                Sign up
               </Link>
             </div>
           </div>

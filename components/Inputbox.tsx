@@ -15,8 +15,8 @@ export const Inputbox = ({
         type="text"
         placeholder={placeholder}
         onChange={onChange}
-        className="px-4 py-2 w-full border border-slate-700 bg-transparent rounded-sm "
-      />
+        className="px-3 py-2 w-full border border-slate-700 bg-transparent rounded-sm "
+      />            
     </div>
-  );
+  );                                                                                                                                                                                                                                      
 };
