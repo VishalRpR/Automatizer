@@ -21,6 +21,8 @@ export default function Signin() {
     });
 
     if (res.status == 200) {
+      console.log(res.data.token)
+           localStorage.setItem("token",res.data.token)
       router.push("/dashboard");
     }
   }
